@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Salaries</h2>
+{% if user.user_type == 'admin' %}
+<div class="card mb-4" style="background-color: #f2f2f2; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
+    <h4>Add Salary</h4>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label>Employee</label>
+                <select name="employee" required>
+                    <option value="">---------</option>
+                    {% for emp in employees %}
+                    <option value="{{ emp.id }}">{{ emp.user.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Basic Salary</label>
+                <input type="number" step="0.01" name="basic_salary" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Bonus Percentage</label>
+                <input type="number" step="0.01" name="bonus_percentage" required>
+            </div>
+        </div>
+        <input type="submit" value="Add Salary">
+    </form>
+</div>
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Basic Salary</th>
+            <th>Bonus %</th>
+            <th>Total Salary</th>
+            {% if user.user_type == 'admin' %}
+            <th>Actions</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for salary in salaries %}
+        <tr>
+            <td>{{ salary.employee.user.username }}</td>
+            <td>${{ salary.basic_salary }}</td>
+            <td>{{ salary.bonus_percentage }}%</td>
+            <td>${{ salary.total|floatformat:2 }}</td>
+            {% if user.user_type == 'admin' %}
+            <td>
+                <a href="{% url 'salary_update' salary.pk %}">Edit</a> |
+                <a href="{% url 'salary_delete' salary.pk %}">Delete</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

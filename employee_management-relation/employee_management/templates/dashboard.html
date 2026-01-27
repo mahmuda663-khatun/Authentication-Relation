@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>Dashboard</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Total Employees</div>
+            <div class="card-body">
+                <h1 class="card-title">{{ emp_count }}</h1>
+                <a href="{% url 'employee_list' %}" class="btn btn-light btn-sm mt-2">Manage Employees</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Total Departments</div>
+            <div class="card-body">
+                <h1 class="card-title">{{ dept_count }}</h1>
+                {% if user_type == 'admin' %}
+                <a href="{% url 'department_list' %}" class="btn btn-light btn-sm mt-2">Manage Departments</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if user_type == 'admin' %}
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Total Monthly Expenses</div>
+            <div class="card-body">
+                <h1 class="card-title">${{ total_expense|floatformat:2 }}</h1>
+                <a href="{% url 'salary_list' %}" class="btn btn-light btn-sm mt-2">Manage Salaries</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

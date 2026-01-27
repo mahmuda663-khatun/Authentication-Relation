@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Employees</h2>
+{% if user.user_type == 'admin' %}
+<div class="card mb-4" style="background-color: #f2f2f2; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
+    <h4>Add Employee</h4>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label>Username</label>
+                <input type="text" name="username" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label>Department</label>
+                <select name="department">
+                    <option value="">---------</option>
+                    {% for dept in departments %}
+                    <option value="{{ dept.id }}">{{ dept.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Designation</label>
+                <input type="text" name="designation" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Phone</label>
+                <input type="text" name="phone">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label>Address</label>
+            <textarea name="address" rows="2"></textarea>
+        </div>
+        <input type="submit" value="Add Employee">
+    </form>
+</div>
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Phone</th>
+            {% if user.user_type == 'admin' %}
+            <th>Actions</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp.user.username }}</td>
+            <td>{{ emp.user.email }}</td>
+            <td>{{ emp.department.name|default:"-" }}</td>
+            <td>{{ emp.designation }}</td>
+            <td>{{ emp.phone }}</td>
+            {% if user.user_type == 'admin' %}
+            <td>
+                <a href="{% url 'employee_update' emp.pk %}">Edit</a> |
+                <a href="{% url 'employee_delete' emp.pk %}" onclick="return confirm('Are you sure?');">Delete</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

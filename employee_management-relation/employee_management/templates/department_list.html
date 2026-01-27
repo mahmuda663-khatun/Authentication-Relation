@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>Departments</h2>
+    </div>
+</div>
+
+<div class="card mb-4" style="background-color: #f2f2f2; padding: 20px; border-radius: 5px;">
+    <h4>Add Department</h4>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Name</label>
+            <input type="text" name="name" required placeholder="Department Name">
+        </div>
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea name="description" rows="2" placeholder="Description"></textarea>
+        </div>
+        <input type="submit" value="Add Department">
+    </form>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dept in departments %}
+                <tr>
+                    <td>{{ dept.name }}</td>
+                    <td>{{ dept.description }}</td>
+                    <td>
+                        <a href="{% url 'department_update' dept.pk %}">Edit</a> |
+                        <a href="{% url 'department_delete' dept.pk %}"
+                            onclick="return confirm('Are you sure?');">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

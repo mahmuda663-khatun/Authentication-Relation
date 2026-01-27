@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .signup-box {
+            background: #fff;
+            width: 370px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .signup-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-box {
+            margin-bottom: 14px;
+        }
+
+        .input-box label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .input-box input,
+        .input-box select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .input-box input:focus,
+        .input-box select:focus {
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #667eea;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #5a67d8;
+        }
+
+        .login-text {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-text a {
+            color: #667eea;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="signup-box">
+    <h2>Sign Up</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="input-box">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Choose a username">
+        </div>
+
+        <div class="input-box">
+            <label>User Type</label>
+            <select name="user_type">
+                <option value="">-- Select User Type --</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+                <option value="moderator">Moderator</option>
+            </select>
+        </div>
+
+        <div class="input-box">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your email">
+        </div>
+
+        <div class="input-box">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Create password">
+        </div>
+
+        <div class="input-box">
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" placeholder="Confirm password">
+        </div>
+
+        <button class="btn">Create Account</button>
+    </form>
+
+    <div class="login-text">
+        Already have an account? <a href="{% url 'signin' %}">Login</a>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>{{ title }}</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label>Department Name</label>
+                        <input type="text" name="name" value="{{ department.name|default:'' }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Description</label>
+                        <textarea name="description" rows="3">{{ department.description|default:'' }}</textarea>
+                    </div>
+
+                    <input type="submit" value="Save">
+                    <div style="margin-top: 10px;">
+                        <a href="{% url 'department_list' %}" style="text-decoration: none; color: #333;">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

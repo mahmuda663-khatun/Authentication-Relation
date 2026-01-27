@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>{{ title }}</h3>
+            </div>
+            <div class="card-body">
+                {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% if not edit_mode %}
+                    <h4>User Details</h4>
+                    <div class="mb-3">
+                        <label>Username</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <hr>
+                    {% else %}
+                    <div class="alert alert-info">Editing details for: <strong>{{ employee.user.username }}</strong>
+                    </div>
+                    {% endif %}
+
+                    <h4>Employee Details</h4>
+                    <div class="mb-3">
+                        <label>Department</label>
+                        <select name="department">
+                            <option value="">---------</option>
+                            {% for dept in departments %}
+                            <option value="{{ dept.id }}" {% if employee.department.id == dept.id %}selected{% endif %}>
+                                {{ dept.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Designation</label>
+                        <input type="text" name="designation" value="{{ employee.designation }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Phone</label>
+                        <input type="text" name="phone" value="{{ employee.phone }}">
+                    </div>
+                    <div class="mb-3">
+                        <label>Address</label>
+                        <textarea name="address" rows="3">{{ employee.address }}</textarea>
+                    </div>
+
+                    <input type="submit" value="Save">
+                    <div style="margin-top: 10px;">
+                        <a href="{% url 'employee_list' %}" style="text-decoration: none; color: #333;">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
