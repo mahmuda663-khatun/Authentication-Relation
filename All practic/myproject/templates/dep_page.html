@@ -1,0 +1,58 @@
+{% extends 'home.html' %}
+
+
+{% block body %}
+    
+
+<!-- ===== FORM CARD ===== -->
+    <div class="container">
+        <div class="card">
+            <h2>Create From</h2>
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="name" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+                    <label>Descriptions</label>
+                    <input type="text" name="description" placeholder="Enter email">
+                </div>
+
+                <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <!-- ===== TABLE CARD ===== -->
+        <div class="card">
+            <h2>Department Table View</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Descriptions</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in data %}
+                    <tr>
+                        <td>{{i.name}}</td>
+                        <td>{{i.description}}</td>
+                        <td>
+                            <a href="{% url 'dep_edit' i.id %}">Edit</a>
+                            <a href="{% url 'dep_delete' i.id %}">Delete</a>
+                        </td>
+                    </tr>
+                        
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+
+{% endblock body %}
+    

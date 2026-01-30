@@ -1,0 +1,95 @@
+{% extends 'home.html' %}
+
+
+{% block body %}
+    
+
+<!-- ===== FORM CARD ===== -->
+    <div class="container">
+        <div class="card">
+            <h2>Create From</h2>
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="name" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+                    <label>Image</label>
+                    <input type="file" name="image" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+                    <label>Department</label>
+                    <select name="department">
+                        
+                        {% for i in d_data %}
+                           <option value="{{i.id}}">{{i.name}}</option> 
+                        {% endfor %}
+                            
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>food_per</label>
+                    <input type="number" name="food_per" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+                    <label>food_fee</label>
+                    <input type="number" name="food_fee" placeholder="Enter email">
+                </div>
+
+                <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <!-- ===== TABLE CARD ===== -->
+        <div class="card">
+            <h2>Department Table View</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>image</th>
+                        <th>Department</th>
+                        <th>food_per</th>
+                        <th>food_fee</th>
+                        <th>total_fee</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in data %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                            
+                            {% if i.image %}
+                                <img src="{{i.image.url}}" width="50px" height="50px" alt="">
+
+                            {% else %}
+                            no image
+                            {% endif %}
+                                
+                        </td>
+                        <td>{{i.department}}</td>
+                        <td>{{i.food_per}}</td>
+                        <td>{{i.food_fee}}</td>
+                        <td>{{i.total_fee}}</td>
+                        <!-- <td>
+                            <a href="{% url 'dep_edit' i.id %}">Edit</a>
+                            <a href="{% url 'dep_delete' i.id %}">Delete</a>
+                        </td> -->
+                    </tr>
+                        
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+
+{% endblock body %}

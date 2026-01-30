@@ -92,14 +92,14 @@
         <h2>Create Account</h2>
 
         
+         
+    {% if massage %}
+
         {% for i in massage %}
-            
-            {% if massage %}
-                <p>{{i}}</p>
-            {% endif %}
-                
-            
+            <p>{{i}}</p>
         {% endfor %}
+        
+    {% endif %}
             
 
         <form action="" method="POST">

@@ -20,10 +20,11 @@ class DepartModel(models.Model):
     
 class StudentModel(models.Model):
     name=models.CharField(null=True)
-    Roll=models.IntegerField(null=True)
+    image=models.ImageField(upload_to='imag/',null=True)
     department=models.ForeignKey(DepartModel,on_delete=models.CASCADE,null=True)
-    food_per=models.DecimalField(decimal_places=2,max_digits=50,null=True)
-    total_free=models.DecimalField(decimal_places=2,max_digits=50,null=True)
+    food_per=models.DecimalField(decimal_places=10,max_digits=50,null=True)
+    total_fee=models.DecimalField(decimal_places=10,max_digits=50,null=True)
+    food_fee=models.DecimalField(decimal_places=10,max_digits=50,null=True)
 
     def __str__(self):
         return self.name
