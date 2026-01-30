@@ -1,0 +1,29 @@
+{% extends 'home.html' %}
+
+{% block body %}
+    <div class="card">
+            <h2> category table</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in data %}
+                        <tr>
+                            <td>{{i.name}}</td>
+                            <td>
+                                <a href="{% url 'edit_cate' i.id %}">Edit</a>
+                                <a href="{% url 'delete_cate' i.id %}">Delete</a>
+                            </td>
+                        </tr>
+                        
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+{% endblock body %}

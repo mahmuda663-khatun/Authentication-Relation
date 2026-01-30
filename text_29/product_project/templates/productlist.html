@@ -1,0 +1,48 @@
+{% extends 'home.html' %}
+
+{% block body %}
+    <div class="card">
+            <h2> product table</h2>
+            <form action="" method="GET">
+          <label for="">stock Type</label>
+          <select id="dept_type" name="stock">
+            <option value="">--select--</option>
+            <option value="Available" {% if stock == 'Available' %} selected{% endif %} >Available</option>
+            <option value="Out_of_stock" {% if stock == 'Out_of_stock' %}selected{% endif %} >Out_of_stock</option>
+          </select>
+          <button type="submit">Filter</button>
+          <a href="{% url 'productlist' %}">clear</a>
+        </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>unit_price</th>
+                        <th>qty</th>
+                        <th>total_amount</th>
+                        <th>stock</th>
+                        <th>category</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in data %}
+                        <tr>
+                            <td>{{i.name}}</td>
+                            <td>{{i.unit_price}}</td>
+                            <td>{{i.qty}}</td>
+                            <td>{{i.total_amount}}</td>
+                            <td>{{i.stock}}</td>
+                            <td>{{i.category.name}}</td>
+                            <td>
+                                <a href="{% url 'productEdit' i.id %}">Edit</a>
+                                <a href="{% url 'productDelete' i.id %}">Delete</a>
+                            </td>
+                        
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+{% endblock body %}
