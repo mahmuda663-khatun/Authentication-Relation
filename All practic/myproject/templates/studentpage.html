@@ -49,6 +49,16 @@
         <!-- ===== TABLE CARD ===== -->
         <div class="card">
             <h2>Department Table View</h2>
+        <form method="GET">
+            <select name="dep">
+                {% for i in s_data %}
+                    <option value="{{i.id}}">{{i.name}}</option> 
+                {% endfor %}
+            </select>
+
+            <button type="submit">Filter</button>
+
+        </form>
             <table>
                 <thead>
                     <tr>
@@ -76,7 +86,7 @@
                             {% endif %}
                                 
                         </td>
-                        <td>{{i.department}}</td>
+                        <td>{{i.department.name}}</td>
                         <td>{{i.food_per}}</td>
                         <td>{{i.food_fee}}</td>
                         <td>{{i.total_fee}}</td>

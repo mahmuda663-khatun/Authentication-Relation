@@ -68,7 +68,7 @@ def chengepass(r):
         if check_password(current_password,current_user.password):
 
             if new_password==confirm_password:
-                current_user.set_password('new_password')
+                current_user.set_password(new_password)
                 current_user.save()
                 update_session_auth_hash(r,current_user)
                 return redirect('home')
@@ -132,10 +132,13 @@ def studentpage(r):
             total_fee=total_fee,
             food_fee=food_fee,
         )
-        
+    d_filter=r.GET.get('dep')
+    if d_filter:
+        d_data=DepartModel.objects.filter(department_id=d_filter)
     context={
         'data':s_data,
-        'd_data':d_data
+        'd_data':d_data,
+        'd_filter':d_filter,
     }
     return render (r,'studentpage.html',context)
 
