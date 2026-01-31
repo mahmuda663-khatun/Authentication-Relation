@@ -1,0 +1,22 @@
+{% extends 'home.html' %}
+
+{% block body %}
+<div class="card">
+            <h2>Category Edit Form</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" value="{{E_data.name}}" name="name" placeholder="Enter name">
+                </div>
+
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description"  placeholder="Enter description">{{E_data.description}}</textarea>
+                </div>
+
+                <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+{% endblock body %}

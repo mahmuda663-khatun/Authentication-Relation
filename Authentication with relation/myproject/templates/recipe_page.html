@@ -1,0 +1,118 @@
+{% extends 'home.html' %}
+
+{% block body %}
+    <div class="container">
+
+        <!-- ===== FORM CARD ===== -->
+        <div class="card">
+            <h2>Category Edit Form</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+
+                    <label>Name</label>
+                    <input type="text" name="name" placeholder="Enter name">
+                </div>
+                
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" placeholder="Enter description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Ingredients</label>
+                    <input type="text" name="ingredients" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+                    <label>Instructions</label>
+                    <input type="text" name="instructions" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+                    <label>Image</label>
+                    <input type="file" name="image" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category">
+                        
+                        {% for i in c_data %}
+                            <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                            
+                        
+                    </select>
+                </div>
+
+                {% comment %} <div class="form-group">
+                    <label>created_by</label>
+                    <select name="created_by">
+                        
+                        {% for i in u_data %}
+                            <option value="{{i.id}}">{{i.role}}</option>
+                        {% endfor %}
+                            
+                    </select>
+                </div> {% endcomment %}
+                
+
+                <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <!-- ===== TABLE CARD ===== -->
+        <div class="card">
+            <h2>Category Table View</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>title</th>
+                        <th>description</th>
+                        <th>ingredients</th>
+                        <th>instructions</th>
+                        <th>image</th>
+                        <th>category</th>
+                        <th>created_by</th>
+                        <th>created_at</th>
+                        <th>update_at</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in r_data %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{i.title}}</td>
+                            <td>{{i.description}}</td>
+                            <td>{{i.ingredients}}</td>
+                            <td>{{i.instructions}}</td>
+                            <td>
+                                
+                                {% if i.image %}
+                                    <img src="{{i.image.url}}" width="50px" height="50px" alt="">
+
+                                {% else %}
+                                no image
+                                {% endif %}
+                                    
+                            </td>
+                            <td>{{i.category}}</td>
+                            <td>{{i.created_by}}</td>
+                            <td>{{i.created_at}}</td>
+                            <td>{{i.update_at}}</td>
+                            <td>
+                                <a href="{% url 'recipe_edit' i.id %}">Edit</a>
+                                <a href="{% url 'recipe_delete' i.id %}">Delete</a>
+                            </td> 
+                        </tr>
+                    {% endfor %}
+                        
+                    
+                </tbody>
+            </table>
+        </div>
+{% endblock body %}
