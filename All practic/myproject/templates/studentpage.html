@@ -51,7 +51,7 @@
             <h2>Department Table View</h2>
         <form method="GET">
             <select name="dep">
-                {% for i in s_data %}
+                {% for i in data %}
                     <option value="{{i.id}}">{{i.name}}</option> 
                 {% endfor %}
             </select>

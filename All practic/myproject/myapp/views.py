@@ -134,7 +134,7 @@ def studentpage(r):
         )
     d_filter=r.GET.get('dep')
     if d_filter:
-        d_data=DepartModel.objects.filter(department_id=d_filter)
+        s_data = s_data.filter(department_id=d_filter)
     context={
         'data':s_data,
         'd_data':d_data,
